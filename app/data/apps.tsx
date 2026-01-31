@@ -104,7 +104,7 @@ export const allApps: AppDefinition[] = [
     color: "var(--pastel-lavender)",
     description: "Listen to music",
     defaultPosition: { x: 250, y: 180 },
-    defaultSize: { width: 300, height: 200 },
+    defaultSize: { width: 500, height: 400 },
   },
   {
     id: "settings",
