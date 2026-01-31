@@ -1,0 +1,270 @@
+/* Desktop container */
+.desktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/clouds.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Menu bar */
+.menuBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--title-bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-2);
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur-sm);
+  border-bottom: 1px solid var(--overlay-medium);
+  z-index: var(--z-menubar);
+  font-size: var(--font-size-md);
+}
+
+.menuLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.menuRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.menuItem {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: background var(--transition-fast);
+}
+
+.menuItem:hover {
+  background: var(--overlay-light);
+}
+
+.menuItemActive {
+  background: var(--overlay-heavy);
+}
+
+.appName {
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-1) var(--space-2);
+}
+
+.menuDropdown {
+  position: relative;
+}
+
+.menuDropdownContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur-sm);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-menu-dropdown);
+  padding: var(--space-1) 0;
+  z-index: var(--z-dropdown);
+}
+
+.menuDropdownItem {
+  display: block;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.menuDropdownItem:hover {
+  background: var(--pastel-sky);
+}
+
+.menuDivider {
+  height: 1px;
+  background: var(--overlay-medium);
+  margin: var(--space-1) 0;
+}
+
+.menuTime {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Windows container */
+.windowsContainer {
+  position: absolute;
+  top: var(--title-bar-height);
+  /* Below menu bar */
+  left: 0;
+  right: 0;
+  bottom: var(--space-7);
+  /* Above dock */
+}
+
+/* Mobile stack layout */
+.mobileStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* Dock for all open apps */
+.dock {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.45));
+  backdrop-filter: var(--blur-md) saturate(1.4);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: var(--shadow-dock-combined);
+}
+
+.dockItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background: transparent;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-base), filter var(--transition-base);
+  width: var(--dock-item-size);
+  height: var(--dock-item-size);
+  transform-origin: center bottom;
+}
+
+.dockItem::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-1);
+  border-radius: var(--radius-md);
+  background: var(--dock-item-color, rgba(255, 255, 255, 0.7));
+  box-shadow: var(--shadow-dock-item-combined);
+}
+
+.dockItem :global(svg) {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  z-index: 1;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.dockItem:hover {
+  transform: translateY(-8px) scale(1.12);
+  filter: saturate(1.1);
+}
+
+.dockItem:active {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.dockItemActive {
+  filter: saturate(1.15);
+}
+
+.dockItemMinimized {
+  opacity: 0.6;
+}
+
+.dockItemMinimized:hover {
+  opacity: 1;
+}
+
+.dockItemTitle {
+  display: none;
+}
+
+.dockItemIndicator {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-full);
+  z-index: 2;
+}
+
+/* Responsive: mobile styles */
+@media (max-width: 767px) {
+  .desktop {
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .menuBar {
+    position: fixed;
+    font-size: var(--font-size-sm);
+  }
+
+  .appName {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .menuDropdown {
+    display: none;
+  }
+
+  .windowsContainer {
+    position: relative;
+    top: var(--title-bar-height);
+    bottom: auto;
+    padding-bottom: var(--space-7);
+  }
+
+  .dock {
+    position: fixed;
+    bottom: var(--space-2);
+    border-radius: var(--radius-md);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .dockItemTitle {
+    display: none;
+  }
+
+  .dockItem {
+    width: var(--dock-item-size-mobile);
+    height: var(--dock-item-size-mobile);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .dockItem:hover {
+    transform: translateY(calc(-1 * var(--space-1))) scale(1.05);
+  }
+}
