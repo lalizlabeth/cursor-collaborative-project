@@ -2,6 +2,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Setup API keys
+
+This project uses the OpenWeather API for weather data. To use the weather app:
+
+1. Sign up for a free API key at [OpenWeather](https://openweathermap.org/api)
+2. Create a `.env.local` file in the root directory (or rename the existing one)
+3. Add your API key:
+   ```
+   NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
+   ```
+
+### Run the development server
+
 First, run the development server:
 
 ```bash

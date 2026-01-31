@@ -1,10 +1,9 @@
 .page {
+  /* Scoped color theme (light mode) */
   --background: #fafafa;
   --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
+  --page-text-primary: #000;
+  --page-text-secondary: #666;
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
   --button-secondary-border: #ebebeb;
@@ -26,7 +25,7 @@
   align-items: flex-start;
   justify-content: space-between;
   background-color: var(--foreground);
-  padding: 120px 60px;
+  padding: var(--space-8) var(--space-7);
 }
 
 .intro {
@@ -34,30 +33,30 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: 24px;
+  gap: var(--space-4);
 }
 
 .intro h1 {
   max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
   text-wrap: balance;
-  color: var(--text-primary);
+  color: var(--page-text-primary);
 }
 
 .intro p {
   max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
   text-wrap: balance;
-  color: var(--text-secondary);
+  color: var(--page-text-secondary);
 }
 
 .intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  color: var(--page-text-primary);
 }
 
 .ctas {
@@ -65,8 +64,8 @@
   flex-direction: row;
   width: 100%;
   max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+  gap: var(--space-3);
+  font-size: var(--font-size-base);
 }
 
 .ctas a {
@@ -74,19 +73,19 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
   border: 1px solid transparent;
-  transition: 0.2s;
+  transition: var(--transition-slow);
   cursor: pointer;
   width: fit-content;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 a.primary {
-  background: var(--text-primary);
+  background: var(--page-text-primary);
   color: var(--background);
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 a.secondary {
@@ -108,17 +107,15 @@ a.secondary {
 
 @media (max-width: 600px) {
   .main {
-    padding: 48px 24px;
+    padding: var(--space-6) var(--space-4);
   }
 
   .intro {
-    gap: 16px;
+    gap: var(--space-3);
   }
 
   .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
+    font-size: var(--font-size-xl);
   }
 }
 
@@ -130,10 +127,8 @@ a.secondary {
   .page {
     --background: #000;
     --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
+    --page-text-primary: #ededed;
+    --page-text-secondary: #999;
     --button-primary-hover: #ccc;
     --button-secondary-hover: #1a1a1a;
     --button-secondary-border: #1a1a1a;
