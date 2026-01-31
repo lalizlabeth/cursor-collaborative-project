@@ -1,42 +1,195 @@
+/* ===================================
+   Design tokens
+   =================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+   /* -------------------------
+     Colors - Pastel rainbow
+     ------------------------- */
+   --pastel-pink: #ff83e6;
+   --pastel-peach: #ffba85;
+   --pastel-yellow: #eeda6a;
+   --pastel-mint: #9cefd1;
+   --pastel-sky: #95d1f1;
+   --pastel-lavender: #b59cff;
+   --pastel-lilac: #f1a6f1;
+
+   /* -------------------------
+     Colors - Window chrome (Mac OS 9 inspired)
+     ------------------------- */
+   --window-bg: #ECECEC;
+   --window-bg-dark: #D4D4D4;
+   --window-border-light: #FFFFFF;
+   --window-border-dark: #808080;
+   --window-border-darker: #404040;
+   --window-shadow: rgba(0, 0, 0, 0.025);
+
+   /* -------------------------
+     Colors - Traffic light buttons
+     ------------------------- */
+   --button-close: #FF6058;
+   --button-minimize: #FFBD2E;
+   --button-maximize: #28CA41;
+
+   /* -------------------------
+     Colors - Text
+     ------------------------- */
+   --text-primary: #333333;
+   --text-secondary: #666666;
+
+   /* -------------------------
+     Colors - Glass/overlay effects
+     ------------------------- */
+   --glass-bg: rgba(255, 255, 255, 0.8);
+   --glass-border: rgba(255, 255, 255, 0.5);
+   --glass-border-light: rgba(255, 255, 255, 0.2);
+   --glass-border-medium: rgba(255, 255, 255, 0.4);
+   --glass-highlight: rgba(255, 255, 255, 0.4);
+   --overlay-light: rgba(0, 0, 0, 0.08);
+   --overlay-medium: rgba(0, 0, 0, 0.1);
+   --overlay-heavy: rgba(0, 0, 0, 0.15);
+   --overlay-border: rgba(0, 0, 0, 0.2);
+
+   /* -------------------------
+     Typography - Font sizes
+     ------------------------- */
+   --font-size-xs: 9px;
+   --font-size-sm: 12px;
+   --font-size-md: 13px;
+   --font-size-base: 14px;
+   --font-size-lg: 18px;
+   --font-size-xl: 32px;
+   --font-size-2xl: 40px;
+
+   /* -------------------------
+     Typography - Line heights
+     ------------------------- */
+   --line-height-tight: 1.2;
+   --line-height-base: 1.5;
+   --line-height-relaxed: 1.75;
+
+   /* -------------------------
+     Typography - Font weights
+     ------------------------- */
+   --font-weight-normal: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+
+   /* -------------------------
+     Typography - Letter spacing
+     ------------------------- */
+   --letter-spacing-tight: -0.06em;
+
+   /* -------------------------
+     Spacing scale
+     ------------------------- */
+   --space-1: 4px;
+   --space-2: 8px;
+   --space-3: 16px;
+   --space-4: 24px;
+   --space-5: 32px;
+   --space-6: 48px;
+   --space-7: 64px;
+   --space-8: 128px;
+
+   /* -------------------------
+     Border radius scale
+     ------------------------- */
+   --radius-sm: 4px;
+   --radius-md: 8px;
+   --radius-full: 9999px;
+
+   /* -------------------------
+     Effects - Backdrop blur
+     ------------------------- */
+   --blur-sm: blur(20px);
+   --blur-md: blur(32px);
+   --blur-lg: blur(64px);
+
+   /* -------------------------
+     Effects - Shadows
+     ------------------------- */
+   --shadow-menu-dropdown: 0 var(--space-1) var(--space-3) var(--overlay-heavy);
+   --shadow-dock-outer: 0 8px 18px rgba(0, 0, 0, 0.12);
+   --shadow-dock-inner: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+   --shadow-dock-combined: var(--shadow-dock-outer), var(--shadow-dock-inner);
+   --shadow-dock-item-outer: 0 2px 6px rgba(0, 0, 0, 0.02);
+   --shadow-dock-item-inner: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+   --shadow-dock-item-combined: var(--shadow-dock-item-inner), var(--shadow-dock-item-outer);
+   --shadow-window-outer: 0 2px var(--space-2) var(--window-shadow);
+   --shadow-window-inner: inset 0 1px 0 var(--glass-highlight);
+   --shadow-window-combined: var(--shadow-window-outer), var(--shadow-window-inner);
+
+   /* -------------------------
+     Effects - Transitions
+     ------------------------- */
+   --transition-fast: 0.1s ease;
+   --transition-base: 0.15s ease;
+   --transition-slow: 0.2s ease;
+
+   /* -------------------------
+     Z-index scale
+     ------------------------- */
+   --z-base: 1;
+   --z-menubar: 10000;
+   --z-dropdown: 10001;
+
+   /* -------------------------
+     Component sizing
+     ------------------------- */
+   --title-bar-height: 28px;
+   --border-width: 2px;
+   --window-radius: var(--radius-md);
+   --dock-item-size: 60px;
+   --dock-item-size-mobile: 48px;
+   --traffic-light-size: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===================================
+   Reset and base styles
+   =================================== */
+
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+   height: 100%;
+   width: 100%;
+   overflow: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+   font-family: var(--font-spline-mono), monospace;
+   color: var(--text-primary);
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+   color: inherit;
+   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button,
+input {
+   font-family: inherit;
 }
+
+button {
+   cursor: pointer;
+   border: none;
+   background: none;
+}
+
+/* ===================================
+   Responsive breakpoints (reference)
+   - Mobile: < 768px
+   - Tablet: 768px - 1024px
+   - Desktop: > 1024px
+   =================================== */
