@@ -10,6 +10,7 @@ import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
+import { PoemGeneratorApp } from "../components/apps/PoemGeneratorApp";
 
 export type AppId =
   | "apps"
@@ -20,7 +21,8 @@ export type AppId =
   | "weather"
   | "calendar"
   | "music"
-  | "settings";
+  | "settings"
+  | "poem-generator";
 
 export interface AppDefinition {
   id: AppId;
@@ -115,6 +117,15 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 180, y: 140 },
     defaultSize: { width: 340, height: 280 },
   },
+  {
+    id: "poem-generator",
+    title: "Poem Generator",
+    icon: "pixelarticons:edit-box",
+    color: "var(--pastel-peach)",
+    description: "Create Mad Libs style poems",
+    defaultPosition: { x: 220, y: 100 },
+    defaultSize: { width: 420, height: 480 },
+  },
 ];
 
 export const defaultInstalledAppIds: AppId[] = ["apps", "notes"];
@@ -129,4 +140,5 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  "poem-generator": <PoemGeneratorApp />,
 };
