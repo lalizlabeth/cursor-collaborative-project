@@ -163,19 +163,19 @@ export function useWindowManager(
     setWindows((prev) => {
       const exists = prev.find((w) => w.id === config.id);
       if (exists) {
-        // If window exists but is minimized, restore it
-        if (exists.isMinimized) {
-          const maxZ = getMaxZIndex(prev);
-          return prev.map((w) =>
-            w.id === config.id
-              ? { ...w, isMinimized: false, zIndex: maxZ + 1 }
-              : w
-          );
-        }
-        // Otherwise just focus it
         const maxZ = getMaxZIndex(prev);
+        // Update window with latest config (icon, title, color) and restore if minimized
         return prev.map((w) =>
-          w.id === config.id ? { ...w, zIndex: maxZ + 1 } : w
+          w.id === config.id
+            ? {
+                ...w,
+                icon: config.icon,
+                title: config.title,
+                color: config.color,
+                isMinimized: false,
+                zIndex: maxZ + 1,
+              }
+            : w
         );
       }
       const maxZ = getMaxZIndex(prev);

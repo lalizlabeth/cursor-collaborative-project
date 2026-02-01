@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { SynthesizerApp } from "../components/apps/SynthesizerApp";
 import { TerminalApp } from "../components/apps/TerminalApp";
 import { SnakeApp } from "../components/apps/SnakeApp";
 import { TodosApp } from "../components/apps/TodosApp";
@@ -27,6 +28,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
+  | "synthesizer"
   | "terminal"
   | "poem-generator"
   | "snake"
@@ -129,6 +131,15 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "synthesizer",
+    title: "Synthesizer",
+    icon: "pixelarticons:music",
+    color: "var(--pastel-peach)",
+    description: "Create sounds",
+    defaultPosition: { x: 150, y: 100 },
+    defaultSize: { width: 480, height: 400 },
+  },
+  {
     id: "terminal",
     title: "Terminal",
     icon: "pixelarticons:command",
@@ -197,6 +208,7 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  synthesizer: <SynthesizerApp />,
   terminal: <TerminalApp />,
   "poem-generator": <PoemGeneratorApp />,
   snake: <SnakeApp />,
