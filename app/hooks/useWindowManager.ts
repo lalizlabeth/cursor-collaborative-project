@@ -2,9 +2,19 @@
 
 import { useState, useCallback, useEffect } from "react";
 
+type MenuActionItem = {
+  label: string;
+  action?: () => void;
+  divider?: false;
+};
+
+type MenuDividerItem = {
+  divider: true;
+};
+
 export interface MenuItem {
   label: string;
-  items?: { label: string; action?: () => void; divider?: boolean }[];
+  items?: Array<MenuActionItem | MenuDividerItem>;
 }
 
 export interface WindowState {
