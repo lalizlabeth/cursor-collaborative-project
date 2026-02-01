@@ -128,6 +128,7 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 100, y: 80 },
     defaultSize: { width: 600, height: 400 },
   },
+  {
     id: "jigsaw",
     title: "Jigsaw Puzzle",
     icon: "pixelarticons:image",
