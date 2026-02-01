@@ -63,6 +63,11 @@ export function StickersApp() {
     return styles.area;
   };
 
+  const getLabelClass = (areaNumber: number) => {
+    if (selectedSticker === areaNumber) return styles.areaLabelHighlighted;
+    return styles.areaLabel;
+  };
+
   return (
     <div className={styles.stickersApp}>
       <div className={styles.canvasArea}>
@@ -78,7 +83,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(1)}
           />
           {!filledAreas[1] && (
-            <text x="200" y="40" className={styles.areaLabel}>1</text>
+            <text x="200" y="40" className={getLabelClass(1)}>1</text>
           )}
 
           {/* Area 10: Grass */}
@@ -92,7 +97,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(10)}
           />
           {!filledAreas[10] && (
-            <text x="50" y="260" className={styles.areaLabel}>10</text>
+            <text x="50" y="260" className={getLabelClass(10)}>10</text>
           )}
 
           {/* Area 2: Sun */}
@@ -105,7 +110,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(2)}
           />
           {!filledAreas[2] && (
-            <text x="340" y="55" className={styles.areaLabel}>2</text>
+            <text x="340" y="55" className={getLabelClass(2)}>2</text>
           )}
 
           {/* Area 3: House body */}
@@ -119,7 +124,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(3)}
           />
           {!filledAreas[3] && (
-            <text x="200" y="200" className={styles.areaLabel}>3</text>
+            <text x="200" y="200" className={getLabelClass(3)}>3</text>
           )}
 
           {/* Area 4: Roof */}
@@ -130,7 +135,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(4)}
           />
           {!filledAreas[4] && (
-            <text x="200" y="100" className={styles.areaLabel}>4</text>
+            <text x="200" y="100" className={getLabelClass(4)}>4</text>
           )}
 
           {/* Area 5: Door */}
@@ -144,7 +149,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(5)}
           />
           {!filledAreas[5] && (
-            <text x="200" y="215" className={styles.areaLabel}>5</text>
+            <text x="200" y="215" className={getLabelClass(5)}>5</text>
           )}
 
           {/* Area 6: Left Window */}
@@ -158,7 +163,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(6)}
           />
           {!filledAreas[6] && (
-            <text x="152" y="160" className={styles.areaLabel}>6</text>
+            <text x="152" y="160" className={getLabelClass(6)}>6</text>
           )}
 
           {/* Area 7: Right Window */}
@@ -172,7 +177,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(7)}
           />
           {!filledAreas[7] && (
-            <text x="247" y="160" className={styles.areaLabel}>7</text>
+            <text x="247" y="160" className={getLabelClass(7)}>7</text>
           )}
 
           {/* Area 8: Tree trunk */}
@@ -186,7 +191,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(8)}
           />
           {!filledAreas[8] && (
-            <text x="60" y="210" className={styles.areaLabel}>8</text>
+            <text x="60" y="210" className={getLabelClass(8)}>8</text>
           )}
 
           {/* Area 9: Tree foliage */}
@@ -200,7 +205,7 @@ export function StickersApp() {
             onClick={() => handleAreaClick(9)}
           />
           {!filledAreas[9] && (
-            <text x="60" y="125" className={styles.areaLabel}>9</text>
+            <text x="60" y="125" className={getLabelClass(9)}>9</text>
           )}
 
           {/* Outlines drawn on top */}
