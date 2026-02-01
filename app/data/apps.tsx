@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { TodosApp } from "../components/apps/TodosApp";
 import { StickersApp } from "../components/apps/StickersApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
 import { JigsawApp } from "../components/apps/JigsawApp";
@@ -23,6 +24,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
+  | "todos"
   | "stickers"
   | "jigsaw";
 
@@ -120,6 +122,14 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "todos",
+    title: "To-do list",
+    icon: "pixelarticons:checkbox-on",
+    color: "var(--pastel-mint)",
+    description: "Track your tasks",
+    defaultPosition: { x: 350, y: 150 },
+    defaultSize: { width: 360, height: 420 },
+  },
     id: "stickers",
     title: "Stickers",
     icon: "pixelarticons:paint-bucket",
@@ -151,6 +161,7 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  todos: <TodosApp />,
   stickers: <StickersApp />,
   jigsaw: <JigsawApp />,
 };

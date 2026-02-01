@@ -40,5 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# documentation
+CODEBASE_EXPLAINER.html
 # generated docs
 codebase-explainer.html
