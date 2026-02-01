@@ -51,7 +51,7 @@ export function NotesApp() {
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const saveTimeoutRef = useRef<NodeJS.Timeout>();
+  const saveTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Load notes from localStorage on mount
   useEffect(() => {
