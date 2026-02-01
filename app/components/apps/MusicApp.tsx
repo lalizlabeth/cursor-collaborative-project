@@ -150,7 +150,7 @@ export function MusicApp() {
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState<"off" | "one" | "all">("off");
   const [volume, setVolume] = useState(75);
-  
+
   const audioContextRef = useRef<AudioContext | null>(null);
   const currentOscillatorRef = useRef<OscillatorNode | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
@@ -167,7 +167,7 @@ export function MusicApp() {
       gainNodeRef.current = audioContextRef.current.createGain();
       gainNodeRef.current.connect(audioContextRef.current.destination);
     }
-    
+
     return () => {
       if (audioContextRef.current) {
         audioContextRef.current.close();
@@ -197,32 +197,32 @@ export function MusicApp() {
     oscillator.connect(gainNodeRef.current);
     oscillator.start();
     oscillator.stop(audioContextRef.current.currentTime + duration);
-    
+
     currentOscillatorRef.current = oscillator;
   };
 
   // Start playing melody
   const startPlayback = () => {
     if (!currentSong || !audioContextRef.current) return;
-    
+
     melodyIndexRef.current = 0;
-    
+
     // Play melody notes in sequence
     const playMelody = () => {
       if (!isPlaying) return;
-      
+
       const note = currentSong.melody[melodyIndexRef.current];
       playNote(note);
-      
+
       melodyIndexRef.current = (melodyIndexRef.current + 1) % currentSong.melody.length;
     };
-    
+
     // Play immediately
     playMelody();
-    
+
     // Continue playing every 500ms
     melodyIntervalRef.current = setInterval(playMelody, 500);
-    
+
     // Update progress bar
     progressIntervalRef.current = setInterval(() => {
       setProgress((prev) => {
@@ -272,7 +272,7 @@ export function MusicApp() {
     } else {
       stopPlayback();
     }
-    
+
     return () => {
       stopPlayback();
     };
