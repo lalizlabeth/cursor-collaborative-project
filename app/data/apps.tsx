@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { StickersApp } from "../components/apps/StickersApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
 import { JigsawApp } from "../components/apps/JigsawApp";
 
@@ -22,6 +23,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
+  | "stickers"
   | "jigsaw";
 
 export interface AppDefinition {
@@ -118,6 +120,14 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "stickers",
+    title: "Stickers",
+    icon: "pixelarticons:paint-bucket",
+    color: "var(--pastel-pink)",
+    description: "Paint by stickers",
+    defaultPosition: { x: 100, y: 80 },
+    defaultSize: { width: 600, height: 400 },
+  },
     id: "jigsaw",
     title: "Jigsaw Puzzle",
     icon: "pixelarticons:image",
@@ -140,5 +150,6 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  stickers: <StickersApp />,
   jigsaw: <JigsawApp />,
 };
