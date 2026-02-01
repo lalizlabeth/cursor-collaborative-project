@@ -10,6 +10,7 @@ import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
+import { JigsawApp } from "../components/apps/JigsawApp";
 
 export type AppId =
   | "apps"
@@ -20,7 +21,8 @@ export type AppId =
   | "weather"
   | "calendar"
   | "music"
-  | "settings";
+  | "settings"
+  | "jigsaw";
 
 export interface AppDefinition {
   id: AppId;
@@ -115,6 +117,15 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 180, y: 140 },
     defaultSize: { width: 340, height: 280 },
   },
+  {
+    id: "jigsaw",
+    title: "Jigsaw Puzzle",
+    icon: "pixelarticons:image",
+    color: "var(--pastel-mint)",
+    description: "Classic puzzle game",
+    defaultPosition: { x: 100, y: 50 },
+    defaultSize: { width: 580, height: 620 },
+  },
 ];
 
 export const defaultInstalledAppIds: AppId[] = ["apps", "notes"];
@@ -129,4 +140,5 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  jigsaw: <JigsawApp />,
 };
