@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { SynthesizerApp } from "../components/apps/SynthesizerApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
 
 export type AppId =
@@ -20,7 +21,8 @@ export type AppId =
   | "weather"
   | "calendar"
   | "music"
-  | "settings";
+  | "settings"
+  | "synthesizer";
 
 export interface AppDefinition {
   id: AppId;
@@ -115,6 +117,15 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 180, y: 140 },
     defaultSize: { width: 340, height: 280 },
   },
+  {
+    id: "synthesizer",
+    title: "Synthesizer",
+    icon: "pixelarticons:music",
+    color: "var(--pastel-peach)",
+    description: "Create sounds",
+    defaultPosition: { x: 150, y: 100 },
+    defaultSize: { width: 480, height: 400 },
+  },
 ];
 
 export const defaultInstalledAppIds: AppId[] = ["apps", "notes"];
@@ -129,4 +140,5 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  synthesizer: <SynthesizerApp />,
 };
