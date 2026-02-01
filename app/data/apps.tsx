@@ -32,6 +32,7 @@ export interface AppDefinition {
   description: string;
   defaultPosition?: { x: number; y: number };
   defaultSize?: { width: number; height: number };
+  minSize?: { width: number; height: number };
 }
 
 export const allApps: AppDefinition[] = [
@@ -125,6 +126,7 @@ export const allApps: AppDefinition[] = [
     description: "Classic snake game",
     defaultPosition: { x: 200, y: 100 },
     defaultSize: { width: 420, height: 520 },
+    minSize: { width: 420, height: 520 },
   },
 ];
 
