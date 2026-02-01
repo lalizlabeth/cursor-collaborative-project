@@ -5,11 +5,13 @@ import { useState, useCallback, useEffect } from "react";
 type MenuActionItem = {
   label: string;
   action?: () => void;
-  divider?: false;
+  divider?: false | undefined;
 };
 
 type MenuDividerItem = {
   divider: true;
+  label?: never;
+  action?: never;
 };
 
 export interface MenuItem {
