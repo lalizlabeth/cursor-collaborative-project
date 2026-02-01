@@ -13,6 +13,7 @@ import { SnakeApp } from "../components/apps/SnakeApp";
 import { TodosApp } from "../components/apps/TodosApp";
 import { StickersApp } from "../components/apps/StickersApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
+import { PoemGeneratorApp } from "../components/apps/PoemGeneratorApp";
 import { JigsawApp } from "../components/apps/JigsawApp";
 
 export type AppId =
@@ -25,6 +26,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
+  | "poem-generator",
   | "snake"
   | "todos"
   | "stickers"
@@ -125,6 +127,15 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "poem-generator",
+    title: "Poem Generator",
+    icon: "pixelarticons:edit-box",
+    color: "var(--pastel-peach)",
+    description: "Create Mad Libs style poems",
+    defaultPosition: { x: 220, y: 100 },
+    defaultSize: { width: 420, height: 480 },
+  },
+  {
     id: "snake",
     title: "Snake",
     icon: "pixelarticons:android",
@@ -175,6 +186,7 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  "poem-generator": <PoemGeneratorApp />,
   snake: <SnakeApp />,
   todos: <TodosApp />,
   stickers: <StickersApp />,
