@@ -134,6 +134,7 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 420, height: 520 },
     minSize: { width: 420, height: 520 },
   },
+  {
     id: "todos",
     title: "To-do list",
     icon: "pixelarticons:checkbox-on",
@@ -142,6 +143,7 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 350, y: 150 },
     defaultSize: { width: 360, height: 420 },
   },
+  {
     id: "stickers",
     title: "Stickers",
     icon: "pixelarticons:paint-bucket",
