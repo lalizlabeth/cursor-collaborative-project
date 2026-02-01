@@ -30,11 +30,6 @@
 
 .newNoteButton:hover {
   background: var(--pastel-peach);
-  transform: translateY(-1px);
-}
-
-.newNoteButton:active {
-  transform: translateY(0);
 }
 
 .notesList {
