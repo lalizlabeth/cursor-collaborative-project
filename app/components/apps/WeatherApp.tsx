@@ -26,8 +26,6 @@ export function WeatherApp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY || "demo";
-
   const fetchWeather = async (cityName: string) => {
     setLoading(true);
     setError("");
@@ -35,11 +33,14 @@ export function WeatherApp() {
     try {
       // Fetch current weather
       const weatherRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${API_KEY}`
+        `/api/weather/current?city=${encodeURIComponent(cityName)}`
       );
       
       if (!weatherRes.ok) {
-        throw new Error("City not found");
+        const errorData = await weatherRes.json().catch(() => null);
+        const errorMessage =
+          errorData?.message || errorData?.error || "City not found";
+        throw new Error(errorMessage);
       }
       
       const weatherData = await weatherRes.json();
@@ -54,7 +55,7 @@ export function WeatherApp() {
 
       // Fetch 7-day forecast
       const forecastRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=${API_KEY}`
+        `/api/weather/forecast?city=${encodeURIComponent(cityName)}`
       );
       
       if (forecastRes.ok) {
