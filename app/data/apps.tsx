@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { SnakeApp } from "../components/apps/SnakeApp";
 import { TodosApp } from "../components/apps/TodosApp";
 import { StickersApp } from "../components/apps/StickersApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
@@ -24,6 +25,7 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
+  | "snake"
   | "todos"
   | "stickers"
   | "jigsaw";
@@ -36,6 +38,7 @@ export interface AppDefinition {
   description: string;
   defaultPosition?: { x: number; y: number };
   defaultSize?: { width: number; height: number };
+  minSize?: { width: number; height: number };
 }
 
 export const allApps: AppDefinition[] = [
@@ -122,6 +125,15 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "snake",
+    title: "Snake",
+    icon: "pixelarticons:android",
+    color: "var(--pastel-mint)",
+    description: "Classic snake game",
+    defaultPosition: { x: 200, y: 100 },
+    defaultSize: { width: 420, height: 520 },
+    minSize: { width: 420, height: 520 },
+  },
     id: "todos",
     title: "To-do list",
     icon: "pixelarticons:checkbox-on",
@@ -161,6 +173,7 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  snake: <SnakeApp />,
   todos: <TodosApp />,
   stickers: <StickersApp />,
   jigsaw: <JigsawApp />,
