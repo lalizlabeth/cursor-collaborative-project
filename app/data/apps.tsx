@@ -9,6 +9,7 @@ import { FilesApp } from "../components/apps/FilesApp";
 import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
+import { TerminalApp } from "../components/apps/TerminalApp";
 import { SnakeApp } from "../components/apps/SnakeApp";
 import { TodosApp } from "../components/apps/TodosApp";
 import { StickersApp } from "../components/apps/StickersApp";
@@ -26,7 +27,8 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
-  | "poem-generator",
+  | "terminal"
+  | "poem-generator"
   | "snake"
   | "todos"
   | "stickers"
@@ -127,6 +129,15 @@ export const allApps: AppDefinition[] = [
     defaultSize: { width: 340, height: 280 },
   },
   {
+    id: "terminal",
+    title: "Terminal",
+    icon: "pixelarticons:command",
+    color: "#33ff33",
+    description: "Retro command line",
+    defaultPosition: { x: 150, y: 100 },
+    defaultSize: { width: 600, height: 400 },
+  },
+  {
     id: "poem-generator",
     title: "Poem Generator",
     icon: "pixelarticons:edit-box",
@@ -186,6 +197,7 @@ export const windowContents: Record<AppId, ReactNode> = {
   calendar: <CalendarApp />,
   music: <MusicApp />,
   settings: <SettingsApp />,
+  terminal: <TerminalApp />,
   "poem-generator": <PoemGeneratorApp />,
   snake: <SnakeApp />,
   todos: <TodosApp />,
