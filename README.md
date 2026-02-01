@@ -10,7 +10,7 @@ This project uses the OpenWeather API for weather data. To use the weather app:
 2. Create a `.env.local` file in the root directory (or rename the existing one)
 3. Add your API key:
    ```
-   NEXT_PUBLIC_OPENWEATHER_API_KEY=your_api_key_here
+   OPENWEATHER_API_KEY=your_api_key_here
    ```
 
 ### Run the development server

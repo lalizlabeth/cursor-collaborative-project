@@ -24,6 +24,7 @@ export function AppsApp() {
         color: app.color,
         defaultPosition: app.defaultPosition,
         defaultSize: app.defaultSize,
+        minSize: app.minSize,
       });
     }
   };
