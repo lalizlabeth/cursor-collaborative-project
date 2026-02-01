@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# architecture documentation
+architecture-explainer.html
+# documentation
+CODEBASE_EXPLAINER.html
+# generated docs
+codebase-explainer.html

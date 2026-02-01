@@ -10,7 +10,12 @@ import { MusicApp } from "../components/apps/MusicApp";
 import { NotesApp } from "../components/apps/NotesApp";
 import { SettingsApp } from "../components/apps/SettingsApp";
 import { TerminalApp } from "../components/apps/TerminalApp";
+import { SnakeApp } from "../components/apps/SnakeApp";
+import { TodosApp } from "../components/apps/TodosApp";
+import { StickersApp } from "../components/apps/StickersApp";
 import { WeatherApp } from "../components/apps/WeatherApp";
+import { PoemGeneratorApp } from "../components/apps/PoemGeneratorApp";
+import { JigsawApp } from "../components/apps/JigsawApp";
 
 export type AppId =
   | "apps"
@@ -22,7 +27,12 @@ export type AppId =
   | "calendar"
   | "music"
   | "settings"
-  | "terminal";
+  | "terminal"
+  | "poem-generator"
+  | "snake"
+  | "todos"
+  | "stickers"
+  | "jigsaw";
 
 export interface AppDefinition {
   id: AppId;
@@ -32,6 +42,7 @@ export interface AppDefinition {
   description: string;
   defaultPosition?: { x: number; y: number };
   defaultSize?: { width: number; height: number };
+  minSize?: { width: number; height: number };
 }
 
 export const allApps: AppDefinition[] = [
@@ -126,6 +137,52 @@ export const allApps: AppDefinition[] = [
     defaultPosition: { x: 150, y: 100 },
     defaultSize: { width: 600, height: 400 },
   },
+  {
+    id: "poem-generator",
+    title: "Poem Generator",
+    icon: "pixelarticons:edit-box",
+    color: "var(--pastel-peach)",
+    description: "Create Mad Libs style poems",
+    defaultPosition: { x: 220, y: 100 },
+    defaultSize: { width: 420, height: 480 },
+  },
+  {
+    id: "snake",
+    title: "Snake",
+    icon: "pixelarticons:android",
+    color: "var(--pastel-mint)",
+    description: "Classic snake game",
+    defaultPosition: { x: 200, y: 100 },
+    defaultSize: { width: 420, height: 520 },
+    minSize: { width: 420, height: 520 },
+  },
+  {
+    id: "todos",
+    title: "To-do list",
+    icon: "pixelarticons:checkbox-on",
+    color: "var(--pastel-mint)",
+    description: "Track your tasks",
+    defaultPosition: { x: 350, y: 150 },
+    defaultSize: { width: 360, height: 420 },
+  },
+  {
+    id: "stickers",
+    title: "Stickers",
+    icon: "pixelarticons:paint-bucket",
+    color: "var(--pastel-pink)",
+    description: "Paint by stickers",
+    defaultPosition: { x: 100, y: 80 },
+    defaultSize: { width: 600, height: 400 },
+  },
+  {
+    id: "jigsaw",
+    title: "Jigsaw Puzzle",
+    icon: "pixelarticons:image",
+    color: "var(--pastel-mint)",
+    description: "Classic puzzle game",
+    defaultPosition: { x: 100, y: 50 },
+    defaultSize: { width: 580, height: 620 },
+  },
 ];
 
 export const defaultInstalledAppIds: AppId[] = ["apps", "notes"];
@@ -141,4 +198,9 @@ export const windowContents: Record<AppId, ReactNode> = {
   music: <MusicApp />,
   settings: <SettingsApp />,
   terminal: <TerminalApp />,
+  "poem-generator": <PoemGeneratorApp />,
+  snake: <SnakeApp />,
+  todos: <TodosApp />,
+  stickers: <StickersApp />,
+  jigsaw: <JigsawApp />,
 };
