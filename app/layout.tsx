@@ -8,10 +8,21 @@ const splineMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Community garden",
-  description: "A nostalgic desktop experience",
+  title: "Prototyping with Cursor: Community garden",
+  description: "A collection of apps created in 10 mins",
   icons: {
     icon: "/favicon.png",
+  },
+  openGraph: {
+    title: "Prototyping with Cursor: Community garden",
+    description: "A collection of apps created in 10 mins",
+    images: ["/og-image.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prototyping with Cursor: Community garden",
+    description: "A collection of apps created in 10 mins",
+    images: ["/og-image.jpg"],
   },
 };
 
