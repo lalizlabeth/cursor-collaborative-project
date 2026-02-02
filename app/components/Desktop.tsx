@@ -243,10 +243,53 @@ export function Desktop({
           )}
         </div>
 
-        {/* Dock showing all open apps */}
-        {windows.length > 0 && (
-          <div className={styles.dock}>
-            {windows.map((windowState) => (
+        {/* Dock showing pinned and open apps */}
+        <div className={styles.dock}>
+          {/* Apps is always pinned to the dock */}
+          {(() => {
+            const appsApp = allApps.find((app) => app.id === "apps");
+            const appsWindow = windows.find((w) => w.id === "apps");
+            const isOpen = !!appsWindow;
+            
+            if (!appsApp) return null;
+            
+            return (
+              <button
+                key="apps"
+                className={`${styles.dockItem} ${focusedWindowId === "apps" ? styles.dockItemActive : ""} ${appsWindow?.isMinimized ? styles.dockItemMinimized : ""}`}
+                style={{ "--dock-item-color": appsApp.color } as CSSProperties}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!isOpen) {
+                    openWindow({
+                      id: appsApp.id,
+                      title: appsApp.title,
+                      icon: appsApp.icon,
+                      color: appsApp.color,
+                      position: appsApp.defaultPosition,
+                      size: appsApp.defaultSize,
+                      minSize: appsApp.minSize,
+                    });
+                  } else if (appsWindow?.isMinimized) {
+                    restoreWindow("apps");
+                  } else {
+                    focusWindow("apps");
+                  }
+                }}
+                title={appsApp.title}
+              >
+                <Icon icon={appsApp.icon} width={24} height={24} />
+                <span className={styles.dockItemTitle}>{appsApp.title}</span>
+                {/* Active indicator dot - show when open */}
+                {isOpen && <span className={styles.dockItemIndicator} />}
+              </button>
+            );
+          })()}
+          
+          {/* Other open windows (excluding apps which is always shown) */}
+          {windows
+            .filter((w) => w.id !== "apps")
+            .map((windowState) => (
               <button
                 key={windowState.id}
                 className={`${styles.dockItem} ${focusedWindowId === windowState.id ? styles.dockItemActive : ""} ${windowState.isMinimized ? styles.dockItemMinimized : ""}`}
@@ -273,8 +316,7 @@ export function Desktop({
                 )}
               </button>
             ))}
-          </div>
-        )}
+        </div>
       </div>
     </DesktopProvider>
   );
