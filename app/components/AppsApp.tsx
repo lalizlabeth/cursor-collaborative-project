@@ -1,15 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 import { useDesktop } from "../contexts/DesktopContext";
 import { AppId } from "../data/apps";
 
 type Tab = "apps" | "store";
 
+interface ContextMenu {
+  appId: AppId;
+  x: number;
+  y: number;
+}
+
 export function AppsApp() {
   const [activeTab, setActiveTab] = useState<Tab>("apps");
+  const [contextMenu, setContextMenu] = useState<ContextMenu | null>(null);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
   const { allApps, installedAppIds, installApp, uninstallApp, openWindow } = useDesktop();
+
+  // Close context menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (contextMenuRef.current && !contextMenuRef.current.contains(e.target as Node)) {
+        setContextMenu(null);
+      }
+    };
+    if (contextMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [contextMenu]);
+
+  const handleContextMenu = (e: React.MouseEvent, appId: AppId) => {
+    e.preventDefault();
+    // Don't show context menu for the Apps app itself
+    if (appId === "apps") return;
+    setContextMenu({ appId, x: e.clientX, y: e.clientY });
+  };
+
+  const handleUninstall = () => {
+    if (contextMenu) {
+      uninstallApp(contextMenu.appId);
+      setContextMenu(null);
+    }
+  };
 
   const installedApps = allApps.filter((app) => installedAppIds.includes(app.id));
   const availableApps = allApps.filter((app) => !installedAppIds.includes(app.id));
@@ -72,9 +107,16 @@ export function AppsApp() {
       {/* Content */}
       <div style={{ flex: 1, overflow: "auto" }}>
         {activeTab === "apps" ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              gap: 16,
+              justifyItems: "center",
+            }}
+          >
             {installedApps.length === 0 ? (
-              <div style={{ textAlign: "center", padding: 32, color: "var(--text-secondary)" }}>
+              <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: 32, color: "var(--text-secondary)" }}>
                 <Icon icon="pixelarticons:folder" width={32} height={32} style={{ opacity: 0.5, marginBottom: 8 }} />
                 <p style={{ fontSize: 13 }}>No apps installed</p>
                 <p style={{ fontSize: 11, marginTop: 4 }}>Visit the store to download apps</p>
@@ -83,18 +125,28 @@ export function AppsApp() {
               installedApps.map((app) => (
                 <div
                   key={app.id}
+                  onClick={() => handleOpenApp(app.id)}
+                  onContextMenu={(e) => handleContextMenu(e, app.id)}
                   style={{
                     display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 12,
-                    padding: "8px 0",
+                    gap: 8,
+                    padding: 12,
+                    borderRadius: 12,
+                    cursor: "pointer",
+                    width: "100%",
+                    maxWidth: 120,
+                    transition: "background 0.15s ease",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.04)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   <div
                     style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 10,
+                      width: 48,
+                      height: 48,
+                      borderRadius: 12,
                       background: app.color,
                       display: "flex",
                       alignItems: "center",
@@ -102,69 +154,36 @@ export function AppsApp() {
                       flexShrink: 0,
                     }}
                   >
-                    <Icon icon={app.icon} width={22} height={22} style={{ color: "rgba(0, 0, 0, 0.5)" }} />
+                    <Icon icon={app.icon} width={26} height={26} style={{ color: "rgba(0, 0, 0, 0.5)" }} />
                   </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 500, fontSize: 13 }}>{app.title}</div>
-                    <div style={{ fontSize: 11, color: "var(--text-secondary)" }}>{app.description}</div>
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleOpenApp(app.id);
-                      }}
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontWeight: 500, fontSize: 12 }}>{app.title}</div>
+                    <div
                       style={{
-                        padding: "5px 12px",
-                        borderRadius: 6,
-                        background: "rgba(0,0,0,0.06)",
-                        border: "1px solid rgba(0,0,0,0.1)",
-                        fontFamily: "inherit",
-                        fontSize: 11,
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        transition: "opacity 0.15s ease",
+                        fontSize: 10,
+                        color: "var(--text-secondary)",
+                        marginTop: 2,
+                        lineHeight: 1.3,
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
                     >
-                      Open
-                    </button>
-                    {app.id !== "apps" && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          uninstallApp(app.id);
-                        }}
-                        style={{
-                          padding: "2px 4px",
-                          background: "transparent",
-                          border: "none",
-                          fontFamily: "inherit",
-                          fontSize: 10,
-                          cursor: "pointer",
-                          transition: "color 0.15s ease",
-                          color: "var(--text-secondary)",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = "#dc3545";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = "var(--text-secondary)";
-                        }}
-                      >
-                        Uninstall
-                      </button>
-                    )}
+                      {app.description}
+                    </div>
                   </div>
                 </div>
               ))
             )}
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              gap: 16,
+              justifyItems: "center",
+            }}
+          >
             {availableApps.length === 0 ? (
-              <div style={{ textAlign: "center", padding: 32, color: "var(--text-secondary)" }}>
+              <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: 32, color: "var(--text-secondary)" }}>
                 <Icon icon="pixelarticons:check" width={32} height={32} style={{ opacity: 0.5, marginBottom: 8 }} />
                 <p style={{ fontSize: 13 }}>All apps installed</p>
                 <p style={{ fontSize: 11, marginTop: 4 }}>You have all available apps</p>
@@ -173,62 +192,116 @@ export function AppsApp() {
               availableApps.map((app) => (
                 <div
                   key={app.id}
+                  onClick={() => installApp(app.id)}
                   style={{
                     display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 12,
-                    padding: "8px 0",
+                    gap: 8,
+                    padding: 12,
+                    borderRadius: 12,
+                    cursor: "pointer",
+                    width: "100%",
+                    maxWidth: 120,
+                    transition: "background 0.15s ease",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.04)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   <div
                     style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 10,
+                      width: 48,
+                      height: 48,
+                      borderRadius: 12,
                       background: app.color,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
+                      position: "relative",
                     }}
                   >
-                    <Icon icon={app.icon} width={22} height={22} style={{ color: "rgba(0, 0, 0, 0.5)" }} />
+                    <Icon icon={app.icon} width={26} height={26} style={{ color: "rgba(0, 0, 0, 0.5)" }} />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: -4,
+                        right: -4,
+                        width: 18,
+                        height: 18,
+                        borderRadius: "50%",
+                        background: "rgba(0,0,0,0.7)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Icon icon="pixelarticons:download" width={10} height={10} style={{ color: "white" }} />
+                    </div>
                   </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 500, fontSize: 13 }}>{app.title}</div>
-                    <div style={{ fontSize: 11, color: "var(--text-secondary)" }}>{app.description}</div>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontWeight: 500, fontSize: 12 }}>{app.title}</div>
+                    <div
+                      style={{
+                        fontSize: 10,
+                        color: "var(--text-secondary)",
+                        marginTop: 2,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {app.description}
+                    </div>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      installApp(app.id);
-                    }}
-                    style={{
-                      padding: "5px 12px",
-                      borderRadius: 6,
-                      background: "rgba(0,0,0,0.06)",
-                      border: "1px solid rgba(0,0,0,0.1)",
-                      fontFamily: "inherit",
-                      fontSize: 11,
-                      fontWeight: 500,
-                      cursor: "pointer",
-                      transition: "opacity 0.15s ease",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-                  >
-                    <Icon icon="pixelarticons:download" width={12} height={12} />
-                    Install
-                  </button>
                 </div>
               ))
             )}
           </div>
         )}
       </div>
+
+      {/* Context menu */}
+      {contextMenu && (
+        <div
+          ref={contextMenuRef}
+          style={{
+            position: "fixed",
+            left: contextMenu.x,
+            top: contextMenu.y,
+            background: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(10px)",
+            borderRadius: 8,
+            boxShadow: "0 2px 10px rgba(0,0,0,0.15)",
+            border: "1px solid rgba(0,0,0,0.1)",
+            padding: 4,
+            zIndex: 1000,
+            minWidth: 120,
+          }}
+        >
+          <button
+            onClick={handleUninstall}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              width: "100%",
+              padding: "8px 12px",
+              border: "none",
+              background: "transparent",
+              borderRadius: 6,
+              fontFamily: "inherit",
+              fontSize: 12,
+              cursor: "pointer",
+              color: "#dc3545",
+              textAlign: "left",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(220, 53, 69, 0.1)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            <Icon icon="pixelarticons:trash" width={14} height={14} />
+            Uninstall
+          </button>
+        </div>
+      )}
     </div>
   );
 }
