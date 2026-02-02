@@ -266,8 +266,8 @@ export function Desktop({
                       title: appsApp.title,
                       icon: appsApp.icon,
                       color: appsApp.color,
-                      position: appsApp.defaultPosition,
-                      size: appsApp.defaultSize,
+                      defaultPosition: appsApp.defaultPosition,
+                      defaultSize: appsApp.defaultSize,
                       minSize: appsApp.minSize,
                     });
                   } else if (appsWindow?.isMinimized) {
